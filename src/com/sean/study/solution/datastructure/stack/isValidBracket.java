@@ -34,13 +34,29 @@ import java.util.Stack;
 public class isValidBracket {
 
     public boolean isValid(String s) {
-        if (s.length() % 2 != 0) {
-            return false;
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            } else {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                Character topChar = stack.pop();
+                if (ch == ')' && topChar != '(') {
+                    return false;
+                } else if (ch == '}' && topChar != '{') {
+                    return false;
+                } else if (ch == ']' && topChar != '[') {
+                    return false;
+                }
+            }
         }
 
-        char[] chars = s.toCharArray();
-        Stack<Character> stack = new Stack<>();
-//        stack.push()
-        return true;
+        return stack.isEmpty();
     }
 }
